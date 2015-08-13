@@ -31,7 +31,15 @@
  -->
 
 
-
+<script id="modal-template" type="text/x-handlebars-template">
+{{#features}} 
+  <div class="modal {{countryName properties}}">
+    <h2 class="modal__title"></h2>
+    <p class="modal__description"></p>
+    <p class="modal__learnmore"></p>
+  </div>
+{{/features}}
+</script>
 
 
 
@@ -41,6 +49,7 @@
 <script src="bower_components/handlebars/handlebars.js"></script>
 <script src="bower_components/mapbox.js/mapbox.js"></script>
 
+<script src="src/js/templates/templates.js"></script>
 <script src="src/js/main.js"></script>
 
 </body>

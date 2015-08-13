@@ -45,32 +45,10 @@ $.ajax({
     },
     dataType: 'jsonp'
 }).done( function ( data ) {
-    // console.log(data);
-    // console.log(data.parse.text);
-    // console.log(data.parse.text["*"]);
+
 
     copy = $(data.parse.text['*']);
 
-
-//  console.log(copy.find('#China').parent().find('dl'));
-
-
-/*    $('.modal').each(function() {
-
-      var modalClass = $(this).attr('class').slice(6);
-
-      console.log(modalClass);
-      
-
-      $('.' + modalClass + ' .modal__description').append(copy.find('#' + modalClass).parent().next().next();
-      $('.' + modalClass + ' .modal__learnmore').append(copy.find('#' + modalClass).parent().next());
-      $('.' + modalClass + ' .modal__title').append(copy.find('#' + modalClass));
-
-    });
-*/
-    // $('.Afghanistan .modal__description').append(copy.find('#Afghanistan').parent().next().next());
-    // $('.Afghanistan .modal__learnmore').append(copy.find('#Afghanistan').parent().next());
-    // $('.Afghanistan .modal__title').append(copy.find('#Afghanistan'));
 
 
 
@@ -89,11 +67,10 @@ $.ajax({
 
 
       layer.on('click', function(e) {
-        // console.log($(this)[0].feature.properties.name);
-
 
         var clickedCountry = '#' + $(this)[0].feature.properties.name;
         var clickedCountryName = $(this)[0].feature.properties.name.replace(/\s|\.|\&/g, '_');
+        var clickedCountryNameSliced = $(this)[0].feature.properties.name.replace(/\s|\.|\&/g, '_').slice(0, 10);
 
         console.log('.' + clickedCountryName);
         console.log('#' + clickedCountryName);
@@ -104,11 +81,13 @@ $.ajax({
         $('.'+clickedCountryName).addClass('modal--revealed');
 
 
+        console.log( copy.find('[id='+ clickedCountryNameSliced + ']') );
 
-        $('.' + clickedCountryName + ' .modal__description').append( copy.find('#' + clickedCountryName).parent().nextAll('dl').first() );
-       $('.' + clickedCountryName + ' .modal__learnmore').append(copy.find('#' + clickedCountryName).parent().next());
-       $('.' + clickedCountryName + ' .modal__title').append(copy.find('#' + clickedCountryName));
 
+        $('.' + clickedCountryName + ' .modal__description').append( copy.find('[id^='+ clickedCountryNameSliced + ']').parent().nextAll('dl').first() );
+       $('.' + clickedCountryName + ' .modal__learnmore').append( copy.find('[id^='+ clickedCountryNameSliced + ']').parent().next() );
+
+        $('.' + clickedCountryName + ' .modal__title').append( copy.find('[id^='+ clickedCountryNameSliced + ']') );
 
       }); // end layer click
       
