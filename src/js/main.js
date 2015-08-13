@@ -12,6 +12,31 @@ $.getJSON('src/data/countries.geo.json', function(data) {
   myLayer.setGeoJSON(data);
 
 
+  var geoJSON = data;
+
+
+
+  // Handlebars
+  var source = $("#modal-template").html();
+  var template = Handlebars.compile(source);
+
+Handlebars.registerHelper('countryName', function(properties) {
+  return new Handlebars.SafeString(properties.name.replace(/\s|\.|\&/g, '_'));
+});
+
+
+  $('.modals').append(template(geoJSON));
+
+
+
+$('#map').on('click', function(e) {
+
+//  if ( !$('.leaflet-zoom-animated').is(e.target) )
+
+
+  $('.modal').removeClass('modal--revealed');
+});
+
 
 $.ajax({
     url: 'https://en.wikipedia.org/w/api.php?action=parse&prop=text&page=List_of_country-name_etymologies',
@@ -27,40 +52,27 @@ $.ajax({
     copy = $(data.parse.text['*']);
 
 
-
-    myLayer.eachLayer(function(layer) {
-
-
-      layer.on('click', function(e) {
-        console.log($(this)[0].feature.properties.name);
+//  console.log(copy.find('#China').parent().find('dl'));
 
 
-        var clickedCountry = '#' + $(this)[0].feature.properties.name;
-        var clickedCountryName = $(this)[0].feature.properties.name;
+/*    $('.modal').each(function() {
 
-        console.log('.' + clickedCountryName + '.modal__description');
+      var modalClass = $(this).attr('class').slice(6);
 
+      console.log(modalClass);
+      
 
-        // $('.modals').append(
-        //   '<div class="modal modal--revealed ' + clickedCountryName + '">'
-        //   +  '<h2 class="modal__title"></h2>'
-        //   +  '<p class="modal__description"></p>'
-        //   +  '<p class="modal__learnmore"></p>'
-        //   +  '</div>'
-        // );
+      $('.' + modalClass + ' .modal__description').append(copy.find('#' + modalClass).parent().next().next();
+      $('.' + modalClass + ' .modal__learnmore').append(copy.find('#' + modalClass).parent().next());
+      $('.' + modalClass + ' .modal__title').append(copy.find('#' + modalClass));
 
-
-        // $('.' + clickedCountryName + ' .modal__description').append(copy.find(clickedCountry).parent().next().next());
-
-        // if ( copy.find(clickedCountry).parent().next().hasClass('mainarticle') ) {
-        //   $('.' + clickedCountryName + ' .modal__learnmore').append(copy.find(clickedCountry).parent().next());
-        // }
-
-        // $('.' + clickedCountryName + ' .modal__title').append(copy.find(clickedCountry));
+    });
+*/
+    // $('.Afghanistan .modal__description').append(copy.find('#Afghanistan').parent().next().next());
+    // $('.Afghanistan .modal__learnmore').append(copy.find('#Afghanistan').parent().next());
+    // $('.Afghanistan .modal__title').append(copy.find('#Afghanistan'));
 
 
-
-        
 
         var wikiLink = 'https://en.wikipedia.org';
 
@@ -73,9 +85,34 @@ $.ajax({
 
 
 
-      });
+    myLayer.eachLayer(function(layer) {
+
+
+      layer.on('click', function(e) {
+        // console.log($(this)[0].feature.properties.name);
+
+
+        var clickedCountry = '#' + $(this)[0].feature.properties.name;
+        var clickedCountryName = $(this)[0].feature.properties.name.replace(/\s|\.|\&/g, '_');
+
+        console.log('.' + clickedCountryName);
+        console.log('#' + clickedCountryName);
+
+
+        $('.modal').removeClass('modal--revealed');
+
+        $('.'+clickedCountryName).addClass('modal--revealed');
+
+
+
+        $('.' + clickedCountryName + ' .modal__description').append( copy.find('#' + clickedCountryName).parent().nextAll('dl').first() );
+       $('.' + clickedCountryName + ' .modal__learnmore').append(copy.find('#' + clickedCountryName).parent().next());
+       $('.' + clickedCountryName + ' .modal__title').append(copy.find('#' + clickedCountryName));
+
+
+      }); // end layer click
       
-    });
+    }); // end myLayer eachLayer
 
 
 

@@ -20,6 +20,11 @@ path {
   border-radius: 3px;
   padding: 20px;
   overflow: auto;
-  z-index: 1000; }
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden; }
+  .modal--revealed {
+    opacity: 1;
+    visibility: visible; }
 
 /*# sourceMappingURL=main.css.map */

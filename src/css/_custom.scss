@@ -24,4 +24,12 @@ path {
   padding: 20px;
   overflow: auto;
   z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  &--revealed {
+    opacity: 1;
+    visibility: visible;
+  }
 }
