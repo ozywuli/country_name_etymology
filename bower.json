@@ -1,0 +1,22 @@
+{
+  "name": "country_name_etymology",
+  "version": "0.0.0",
+  "authors": [
+    "ozywuli <ozy.wu.li@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "handlebars": "~3.0.3",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "mapbox.js": "~2.2.1",
+    "normalize.css": "~3.0.3"
+  }
+}
